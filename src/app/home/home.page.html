@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Outil de gestion de frais
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="connexion()">
+    <ion-item>
+
+      <ion-label position="stacked">Pseudo</ion-label>
+      <ion-input type="text" name="login" [(ngModel)]="formulaire.login"></ion-input>
+
+      <ion-label position="stacked">Mot de passe</ion-label>
+      <ion-input type="password" position="stacked" name="mdp" [(ngModel)]="formulaire.mdp"></ion-input>
+
+      <ion-button type="submit" color="primary" block>Connexion</ion-button>
+    </ion-item>
+  </form>
+</ion-content>

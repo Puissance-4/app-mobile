@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -25,7 +25,7 @@ export class HomePage {
 
   }
 
-  connexion(){
+  connexion(item){
      
     let correct = false;
  
@@ -33,7 +33,10 @@ export class HomePage {
     this.fichierJSON.forEach(user => {
 
       if(user.login==this.formulaire.login && user.mdp==this.formulaire.mdp){
-        this.router.navigate(['/page-principal-frais']);
+        
+          let param : NavigationExtras = {state:user}
+          this.router.navigate(['/page-principal-frais'], param);
+        
         correct=true;
       }      
     });

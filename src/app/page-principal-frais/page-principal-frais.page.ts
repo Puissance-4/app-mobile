@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras} from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -20,7 +20,14 @@ export class PagePrincipalFraisPage implements OnInit {
 
   mois=0;
 
-  constructor(private router:Router, private http:HttpClient) {
+
+  user:any={login:"",mdp:"",id:""};
+
+  constructor(private router:Router, private activeRoute:ActivatedRoute,private http:HttpClient) { 
+    this.activeRoute.queryParams.subscribe(params =>{
+      this.user=this.router.getCurrentNavigation().extras.state;
+    });
+  
   this.execReq();
 
    }
@@ -46,7 +53,7 @@ export class PagePrincipalFraisPage implements OnInit {
     this.TabFiche=[];
     this.http.get("http://192.168.2.4/~sflachet/appliweb/public/index.php/getAPIFiche")
     .subscribe(results => {
-      this.fichierJSON = results;     // on récupère la liste des fiches (présents dans l'API en format JSON) dans la variable fichierJSON
+      this.fichierJSON = results;     // on récupère la liste des fiches (présentes dans l'API en format JSON) dans la variable fichierJSON
       // on va boucler sur la liste des fiches
       this.fichierJSON.forEach(fiche => {
 
@@ -56,18 +63,21 @@ export class PagePrincipalFraisPage implements OnInit {
         var mm = today.getMonth() + 1;   
         var yyyy = today.getFullYear(); 
 
-        // /!\Ne pas pretter attention au erreur C'EST NORMAL
+        // /!\Ne pas prêter attention aux erreurs : C'EST NORMAL
         
+        if(this.user.id==fiche.idVisiteur)
+        {
+        
+          if (mm < 10) { 
+              mm = '0' + mm;
+          } 
 
-        if (mm < 10) { 
-            mm = '0' + mm; 
-        } 
-
-        var today = mm + '/' + yyyy; //Mise en forme de la date
-        if(this.mois == 0 || mm == this.mois){
-          this.TabFiche.push({id: fiche.id, etat: fiche.idEtat, dateCreation: today, montant: fiche.montant_rembourse });  //On ajoute la fiche au tableau qui contient toutes les fiches
-        }
-      });
+          var today = mm + '/' + yyyy; //Mise en forme de la date
+          if(this.mois == 0 || mm == this.mois){
+            this.TabFiche.push({id: fiche.id,etat: fiche.idEtat, dateCreation: today, montant: fiche.montant_rembourse });  //On ajoute la fiche au tableau qui contient toutes les fiches
+          }
+          } 
+       }); 
     });
   }
 

@@ -7,13 +7,15 @@
 <ion-content>
   <h1>Frais Hors Forfait</h1>
   <ion-item *ngFor="let itemFraisHF of TabFraisHF">
-    <p>Date: {{ itemFraisHF.date }} - Nom: {{ itemFraisHF.libelle }} - Montant {{ itemFraisHF.montant }}€ - Validité: {{ itemFraisHF.validite }}</p>
+    <p *ngIf="itemFraisHF.validite==false">Date: {{ itemFraisHF.date }} - Libelle: {{ itemFraisHF.libelle }} - Montant {{ itemFraisHF.montant }}€ - Validité: Non valide</p>
+    <p *ngIf="itemFraisHF.validite==true">Date: {{ itemFraisHF.date }} - Libelle: {{ itemFraisHF.libelle }} - Montant {{ itemFraisHF.montant }}€</p>
+   
     <hr/>
   </ion-item>
   <hr/>
   <h1>Frais Forfaitisés</h1>
   <ion-item *ngFor="let itemFraisF of TabFraisF">
-    <p>Nom: {{ itemFraisF.nom }} - Quantité: {{ itemFraisF.quantite }}</p>
+    <p>{{ itemFraisF.nom }} - Quantité: {{ itemFraisF.quantite }}</p>
     <hr/>
   </ion-item>
 </ion-content>

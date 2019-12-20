@@ -65,7 +65,9 @@ export class PagePrincipalFraisPage implements OnInit {
 
         // /!\Ne pas prêter attention aux erreurs : C'EST NORMAL
         
-        if(this.user.id==fiche.idVisiteur)
+
+        
+        if(this.user.id==fiche.idVisiteur) //on teste la connection pour obtenir seulement les fiches du visiteur qui c'est connecté a
         {
         
           if (mm < 10) { 

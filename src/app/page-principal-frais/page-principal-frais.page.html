@@ -30,7 +30,11 @@
   </ion-item>
 
   <ion-item *ngFor="let item of TabFiche">
-    <p>{{ item.dateCreation }} - {{item.etat}} - {{item.montant}} € </p>
+    <p *ngIf="item.etat!='Creee'">Date création fiche :{{ item.dateCreation }} - Etat de la fiche: {{item.etat}} - Montant rembourser {{item.montant}} € </p>
+    
+    <p *ngIf="item.etat=='Creee'">Date création fiche :{{ item.dateCreation }} - Etat de la fiche: {{item.etat}}</p>
+      
+
     <ion-button  (click)="Edit(item)">Détails de la fiche</ion-button>
     <hr/>
   </ion-item>

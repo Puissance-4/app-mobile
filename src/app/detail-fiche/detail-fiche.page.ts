@@ -14,6 +14,7 @@ export class DetailFichePage implements OnInit {
   fichierJSONFraisHF: any=[];
   fichierJSONFraisF: any=[];
 
+
   TabFraisHF=[];
   TabFraisF=[];
 
@@ -49,8 +50,10 @@ export class DetailFichePage implements OnInit {
   
           //On ajoute le frais au Tab
           if(env.item.id==fraisHF.idFiche){ //On verifie si le frais correspond bien à la fiche choisie
+            
             env.TabFraisHF.push({date: today, montant: fraisHF.montant, libelle: fraisHF.libelle, validite: fraisHF.validite});
           }
+          
         });
       });
       this.http.get("http://192.168.2.4/~sflachet/appliweb/public/index.php/getAPIFraisF")
